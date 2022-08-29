@@ -1,0 +1,66 @@
+@import "variables.scss";
+
+$color_bg: rgb(190, 226, 236);
+
+%round_block{
+    width: 1000px;
+    padding: 20px;
+    border: 2px solid grey;
+    border-radius: 5px;
+    background: bisque;
+    font-size: 35px;
+    margin: 25px;
+    text-align: center;
+}
+
+@mixin  font($a,$b,$c) {
+    font-size: $a;
+    color: $b;
+    background: $c;
+}
+
+body {
+    background: azure;
+    color: black;
+    margin: 0;
+}
+.block {
+    width: 100%;
+    background: $color_bg;
+    font-size: 30px;
+    span {
+        color: green;
+    }
+    > p {
+        color: red;
+    }
+    p {
+        font-size: 25px;
+    }
+    .block__text {
+        background: lightgray;
+    }
+}
+.link {
+    font-size: 40px;
+    text-decoration: none;
+    &:hover {
+        color: darkcyan;
+        text-decoration: underline;
+    }
+}
+.block__center {
+    text-align: $text_in_center;
+    height: 50px;
+    background: cadetblue;
+
+}
+.block__bottom {
+    @extend %round_block
+}
+.mixin_example {
+    height: 50px;
+    width: 1000px;
+    text-align: center;
+    @include font(40px, yellow, blue)
+}

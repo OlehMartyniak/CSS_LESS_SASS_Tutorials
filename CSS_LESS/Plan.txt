@@ -1,0 +1,90 @@
+Щоб встановити LESS глобально в терміналі викличемо команду:
+
+    npm install less -g less
+
+Щоб перевірити версію :
+
+    lessc -v
+Тепер встановимо компілятор:
+
+    npm install -g less-watch-compiler
+
+Можна створювати змінні (наприклад для кольорів):
+
+    @back: #000;
+
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        color: @back;
+    };
+
+Змінні зручно виносити в окремий файл:
+
+    Створимо файл vars.less
+
+    Пропишемо в vars.less: // main: style.less
+
+    В style.less імпортуємо: @import "vars" (@import "vars.less";)
+
+Або в інші папки (blocks)
+
+"&" буде використовувати назву класу (аби її не повторювати), в якому викликається:
+
+    .btn-primary {
+        background: @btn_primary;
+        color: @white;
+        &:focus,
+        &:hover{
+            outline: 0;
+            background: darken(@btn_primary,25%);
+        }
+    }
+
+Ще один варіант спрощення, наприклад якщо ми використовуємо багато однакового коду для опису наших кнопок,
+створити mixins (аналог функції в JS), де в спільну архітектуру передаватимемо відмінні елементи:
+
+    .btn(@bg) {
+        color: @white;
+        background: @bg;
+
+        &:focus,
+        &:hover{
+            background: darken(@bg,10%)
+        }
+    }
+
+І тоді викликати їх власне в процесі стилізації:
+
+    .btn-secondary {
+        .btn(@btn_secondary)
+    }
+
+Також можна задавати умову всередині функції:
+
+    & when(lightness(@bg) > 60) {
+        color: @black;
+    }
+
+(коли яскавість нашого фону буде більше 60, то колір тексту зміниться на чорний)  
+
+В змінних також можна зберігати шлях до картинок і викликати їх, вказуючи шлях через змінну і назву картинки:
+
+    @img:"..//img/";
+
+Також зручно формувати @media стилі для адаптивної верстки:
+
+->  @breakpoint-mobile: ~"(max-width: 575px)";
+
+    .title {
+    margin: 0;
+    font-size: 2rem;
+    color: @title;
+    font-weight: 700;
+
+->  @media @breakpoint-mobile{
+        font-size: 1.5rem;
+    }
+}
+
+

@@ -1,0 +1,58 @@
+.block__bottom {
+  width: 1000px;
+  padding: 20px;
+  border: 2px solid grey;
+  border-radius: 5px;
+  background: bisque;
+  font-size: 35px;
+  margin: 25px;
+  text-align: center;
+}
+
+body {
+  background: azure;
+  color: black;
+  margin: 0;
+}
+
+.block {
+  width: 100%;
+  background: rgb(190, 226, 236);
+  font-size: 30px;
+}
+.block span {
+  color: green;
+}
+.block > p {
+  color: red;
+}
+.block p {
+  font-size: 25px;
+}
+.block .block__text {
+  background: lightgray;
+}
+
+.link {
+  font-size: 40px;
+  text-decoration: none;
+}
+.link:hover {
+  color: darkcyan;
+  text-decoration: underline;
+}
+
+.block__center {
+  text-align: center;
+  height: 50px;
+  background: cadetblue;
+}
+
+.mixin_example {
+  height: 50px;
+  width: 1000px;
+  text-align: center;
+  font-size: 40px;
+  color: yellow;
+  background: blue;
+}/*# sourceMappingURL=style.css.map */

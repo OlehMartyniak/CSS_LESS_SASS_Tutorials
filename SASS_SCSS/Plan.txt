@@ -1,0 +1,126 @@
+Встановити SASS на компютер:
+
+    npm install -g sass
+
+Щоб SASS стежив за нашим CSS файлом потрібно пройти в директорію проекту і прописати:
+
+    sass --watch style.scss style.css
+
+                                        Особливості SASS:
+
+1.  Вкладеність - можна звертатись до елементів в середині блоку в його {} :
+
+    .block {
+        width: 100%;
+        height: 30px;
+        background: rgba(238, 101, 47, 0.582);
+        font-size: 20px;
+--->    span {
+            color: aqua;
+        }
+    }
+
+
+Або до інших елементів блоку:
+
+    .block {
+        width: 100%;
+        height: 100px;
+        background: rgba(238, 101, 47, 0.582);
+        font-size: 20px;
+            span {
+                color: green;
+            }
+            .block__text {
+                background: lightgray;
+                text-align: center;
+                height: 30px;
+            }
+    }
+
+Щоб звернутись наприклад, до конкретного параграфа (або іншого елемента) в блоці викор ">" :
+
+    .block {
+        width: 100%;
+        background: rgba(238, 101, 47, 0.582);
+        font-size: 30px;
+        span {
+            color: green;
+        }
+--->    > p {
+            color: red;
+        }
+        p {
+            font-size: 25px;
+        }
+        .block__text {
+            background: lightgray;
+            height: 30px;
+        }
+    }
+
+Якщо потрібно повторно використати назву класу, в його скобках можна додати "&":
+
+    .link {
+        font-size: 40px;
+        text-decoration: none;
+--->    &:hover {
+            color: darkcyan;
+            text-decoration: underline;
+        }
+    }
+
+2.  Змінні створюють з допомогою "$" і так же ж і викликаються: 
+
+    $color_bg: rgb(190, 226, 236);
+
+    .block {
+        width: 100%;
+--->    background: $color_bg;
+        font-size: 30px;
+    }
+
+3.  Імпортування інших файлів - у нас є файл variables.scss, де можна зберігати змінні. Щоб імпортувати його:
+
+    в style.scss:   @import "variables.scss";
+
+4.  Шаблони - в них можна прописати безліч стилів, створюються з допомогою %*назва шаблону*{}, а 
+    підключається з доп @extend *назва шаблону* :
+
+    %round_block{
+        width: 1000px;
+        padding: 20px;
+        border: 2px solid grey;
+        border-radius: 5px;
+        background: bisque;
+        font-size: 35px;
+        margin: 25px;
+        text-align: center;
+    }
+
+    .block__bottom {
+        @extend %round_block
+    }
+
+    Окрім того виводити можна і клас, який наприклад навіть не використовується в HTML (а існує лише в scss)
+    (наприклад для виведення якихось іконок) :
+
+    .random_class {
+        width: 75px
+        color: red;
+    }   
+
+    @extend .random_class
+
+5. Ще потужнішою штукою ніж шаблони є mixin - з його допомогою створюється функція-шаблон, в яку можна
+    передавати параметри:
+
+    @mixin  font($a,$b,$c) {
+        font-size: $a;
+        color: $b;
+        background: $c;
+    }   
+
+    .mixin_example {
+--->    @include font(40px, yellow, blue)
+} 
