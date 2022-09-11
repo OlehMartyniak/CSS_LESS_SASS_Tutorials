@@ -1,0 +1,165 @@
+Sourse video:
+https://www.youtube.com/watch?v=nu5mdN2JIwM&ab_channel=TraversyMedia
+
+Щоб встановити SASS викор команду:
+
+sudo npm i -g sass
+
+Щоб SASS почав перетворювати стилі в CSS потрібно додати команду:
+(як альтернативна - це розширення Live Sass Compiler для VS Code)
+
+sass --watch scss/style.scss css/style.css
+
+    - scss/style.scss файл, за яким стежить sass 
+    - css/style.css файл, в який записується css
+
+
+
+
+
+
+1. (вкладеність)
+Nesting - метод роботи з  scss, коли ми для роботи з блоками чи елементами, які знаходяться всередині
+класів, не викликаємо їх окремо, а звертаємось в середині цього класу:
+
+.showcase {
+    background-color: $primary-color;
+    color: #fff;
+    height: 600px;
+
+    nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        ul {
+            display: flex;
+            list-style: none;
+        }
+    }
+}
+
+(nav знаходиться всередині класу .showcase, а ul всередині nav; таким чином можна зручно звертатись
+лише до елементів всередині інших елементів)
+
+& використовуємо, коли потрібно у вкладеному елементі використати назву батьківскього елемента:
+
+.showcase {
+    background-color: $primary-color;
+    color: #fff;
+    height: 600px;
+
+    &-content {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
+
+
+
+2. (блоки)
+Розбиваємо SCSS на різні блоки. Наприклад змінні зберігаємо в "_config.scss" ( _ дозволяє не 
+компілювати файл в CSS). Підключаємо "_файли" через @import:
+
+@import "config";
+
+
+
+
+
+3. (шаблони)
+Наприклад у нас є кнопки, які матимуть більшість характеристик однакових, відрізнятиметься лише стиль
+(_buttons.scss). Для цього використовують шаблони (%):
+
+%btn {
+    display: inline-block;
+    border-radius: 5px;
+    padding: 8px 20px;
+    margin: 3px;
+
+    &:hover {
+        transform: scale(.98);
+    }
+}
+.btn-primary {
+    @extend %btn;
+    background-color: darken($primary-color,20%);
+}
+
+(за допомогою "%назва" оголошують, а з допомогою "@extend %назва" застосовують до потрібного елемента)
+
+
+
+
+
+4. (функції)
+Як параметр можна передавати в SCSS функції. Наприклад функція, яка мінятиме колір тексту на білий або чорний в залежності
+від фону:
+
+@function set-text-color($color) {
+    @if(lightness($color) > 70) {
+        @return #333                    (black)
+    } @else {
+        @return #fff                    (white)
+    }
+}
+
+І передамо її в style.scss :
+
+.showcase {
+    background-color: $primary-color;
+    color: set-text-color($primary-color);          <---
+}
+
+
+
+
+
+5.
+mixins (теж різновид шаблонів; схожі на функцію однак не повертають нічого):
+Створимо mixin, який замінить нам дії в .showcase {
+                                            background-color: $primary-color;
+                                            color: set-text-color($primary-color);        
+                                        }
+
+@mixin set-background($color) {
+    background-color: $color;
+    color: set-text-color($color);
+}
+
+І викличемо наш mixin в .showcase з допомогою @include :
+
+.showcase {
+    @include set-background($primary-color)
+}
+
+
+
+
+
+6. (класи і перебирання)
+Наприклад нам потрібно використовувати певні модифікатори для margin та padding (<p class="m-1">);
+Для цього створимо змінну, з необхідною кількістю цифр класів модицікаторів ($spaceamounts: (1,2,3,4,5))
+Далі викличемо loop схожий на "for in" в JS, де кожній цифрі присвоїмо клас-модифікатор зі зніченням
+для margin i padding:
+
+$spaceamounts: (1,2,3,4,5);
+
+@each $space in $spaceamounts {
+    .m-#{$space} {
+        margin: #{$space}rem;
+    }
+    .m-#{$space} {
+        margin: #{$space}rem 0;
+    }
+    .p-#{$space} {
+        padding: #{$space}rem;
+    }
+    .p-#{$space} {
+        padding: #{$space}rem 0;
+    }
+}
