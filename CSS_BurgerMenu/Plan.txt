@@ -1,0 +1,64 @@
+По дефолту Hamburger не висвітлюється:
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+Тут прописані три полоски Hamburger:
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto ;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+Hamburger висвітлюватиметься лише коли у нас розмір менший за 768px, тому прописуватимемо його
+через @media:
+
+@media (max-width:768px){
+
+    При розмірі меншому за 768рх Hamburger стає видимий
+
+    .hamburger {
+        display: block;
+    }
+
+    А наше nav-menu (Home,About,Contact) потрібно закріпити і приховати (position: fixed; left: -100%;)
+
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        gap: 0;
+        flex-direction: column;
+        background-color: #262626;
+        width: 100%;
+        transition: 0.3s;
+    }
+
+    Однак коли ми натиснемо Hamburger (через JS дамо Hamburger i nav-menu клас "active"), висвітлимо 
+    приховане nav-menu (left: 0;)
+
+    .nav-menu.active {
+        left: 0;
+    }
+    .nav-item {
+        margin: 16px 0;
+    }
+}
+
+DOM маніпуляції в JS: отримуємо доступ до Hamburger i nav-menu i додаємо їм при кліку клас "active" 
+(і забираємо цей клас при другому кліку - toggle("active")):
+
+const hamburger = document.getElementsByClassName("hamburger")[0];
+const navMenu = document.getElementsByClassName("nav-menu")[0];
+
+hamburger.addEventListener("click", ()=> {
+    hamburger.classList.toggle("active");
+    navMenu.classList.toggle("active");
+})
+
