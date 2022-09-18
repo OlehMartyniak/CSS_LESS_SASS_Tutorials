@@ -1,0 +1,45 @@
+Video source:
+https://www.youtube.com/watch?v=wpGNFGqNfdU&ab_channel=TraversyMedia
+
+Створюємо nav, всередині якого є іконка меню-бургера і посилання:
+
+меню:
+<span class="open-slide">
+    <a href="#"><ion-icon name="menu-sharp"></ion-icon></a>
+</span>
+
+посилання:
+<ul class="navbar-nav">
+    <li><a href="#">Home</a></li> 
+    <li><a href="#">About</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Contact</a></li>
+</ul>
+
+Знизу, за межами nav створимо ще одне меню з посиланнями, які власне будуть у відкриваючомуся меню-бургері
+ (за замовчуванням вони не висвітлюватимуться):
+
+<div id="side-menu" class="side-nav">
+    <a href="#" class="btn-close">&times;</a>
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Contact</a>
+</div>
+
+Фукнції імпортуємо з script.js і додамо одразу в елементи:
+
+<a href="#" onclick="openSlideMenu()">
+<a href="#" class="btn-close" onclick="closeSlideMenu()">
+
+const openSlideMenu = ()=> {
+    document.getElementById("side-menu").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+};
+const closeSlideMenu = ()=> {
+    document.getElementById("side-menu").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+};
+
+
+
