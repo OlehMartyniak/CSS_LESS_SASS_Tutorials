@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>CSS Carousel</title>
+</head>
+<body>
+    <section aria-label="Newest Photos">
+        <div class="carousel" data-carousel>
+            <button class="carousel-button prev" data-carousel-button="prev">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+            <button class="carousel-button next" data-carousel-button="next">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </button>
+
+            <ul data-slides>
+                <li class="slide" data-active>
+                    <img src="img/slide-1.jpeg" alt="forest">
+                </li>
+                <li class="slide">
+                    <img src="img/slide-2.jpg" alt="ocean">
+                </li>
+                <li class="slide">
+                    <img src="img/slide-3.jpeg" alt="mountains">
+                </li>
+            </ul>
+        </div>
+
+    </section>
+
+    <script src="script.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+</body>
+</html>
