@@ -7,6 +7,7 @@
 
 Тут прописані три полоски Hamburger:
 
+
 .bar {
     display: block;
     width: 25px;
